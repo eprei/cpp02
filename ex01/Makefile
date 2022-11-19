@@ -1,7 +1,7 @@
 CXX = c++
 # CXX = g++-12
 
-NAME = canon
+NAME = virgule_fixe
 
 SRCS = main.cpp Fixed.cpp
 

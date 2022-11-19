@@ -1,5 +1,6 @@
 #include "Fixed.hpp"
 #include <iostream>
+#include <math.h>
 
 const int Fixed::_nOfBitsFraction = 8;
 
@@ -19,8 +20,8 @@ Fixed::Fixed ( const int i)
 Fixed::Fixed ( const float f)
 {
 	std::cout << "Float constructor called" << std::endl;
-	this->_value = (int) f;
-	return ;
+	this->_value = round (f * pow(2, Fixed::_nOfBitsFraction));
+		return ;
 }
 
 Fixed::Fixed( Fixed const & src )
@@ -39,7 +40,8 @@ Fixed::~Fixed(void)
 Fixed &	Fixed::operator=( Fixed const & rhs )
 {
 	std::cout << "Copy assignment operator called" << std::endl;
-	this->_value = rhs.getRawBits();
+	if (this != &rhs)
+		this->_value = rhs.getRawBits();
 	return *this;
 }
 
@@ -56,16 +58,16 @@ void Fixed::setRawBits( int const raw )
 
 float	Fixed::toFloat( void ) const
 {
-	return (float) this->_value;
+	return ((float)( this->_value * pow(2, (-1 * Fixed::_nOfBitsFraction))));
 }
 
 int	Fixed::toInt( void ) const
 {
-	return this->_value;
+	return (this->_value >> Fixed::_nOfBitsFraction);
 }
 
 std::ostream &	operator<<( std::ostream & o, Fixed const & rhs )
 {
-	o << rhs.getRawBits();
+	o << rhs.toFloat();
 	return o;
 }
