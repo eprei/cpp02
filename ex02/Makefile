@@ -1,7 +1,7 @@
 CXX = c++
 # CXX = g++-12
 
-NAME = virgule_fixe
+NAME = arithmetic
 
 SRCS = main.cpp Fixed.cpp
 
